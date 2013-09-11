@@ -4,6 +4,7 @@
 
 package com.hotdocs.cloud;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 
@@ -15,19 +16,34 @@ public abstract class Request {
     
     protected String billingRef;
     protected String packageId;
-    protected StreamGetter contentStreamGetter;
-    protected StreamGetter packageStreamGetter;
+    protected InputStreamGetter contentStreamGetter;
+    protected InputStreamGetter packageStreamGetter;
+    protected String templateName;
     
     public Request() {
     }
     
-    public Request(String packageId, StreamGetter packageStreamGetter) {
+    public Request(String packageId, InputStreamGetter packageStreamGetter) {
         this.packageId = packageId;
         this.packageStreamGetter = packageStreamGetter;
     }
     
     public Request(String packageId, String packageFile) {
-        this(packageId, new FileStreamGetter(packageFile));
+        this(packageId, new FileInputStreamGetter(packageFile));
+    }
+    
+    public Request(String packageId, String packageFile, String content) {
+        this(packageId, packageFile);
+        contentStreamGetter = new StringInputStreamGetter(content);
+    }
+    
+    public Request(
+            String packageId,
+            String packageFile,
+            String content,
+            String billingRef) {
+        this(packageId, packageFile, content);
+        this.billingRef = billingRef;
     }
     
     // Getters/Setters
@@ -48,34 +64,42 @@ public abstract class Request {
         this.packageId = packageId;
     }
 
-    public StreamGetter getContentStreamGetter() {
+    public InputStreamGetter getContentStreamGetter() {
         return contentStreamGetter;
     }
     
-    public void setContentStreamGetter(StreamGetter contentStreamGetter) {
+    public void setContentStreamGetter(InputStreamGetter contentStreamGetter) {
         this.contentStreamGetter = contentStreamGetter;
     }
     
-    public InputStream getContentStream() {
+    public InputStream getContentStream() throws IOException {
         if (contentStreamGetter != null) {
             return contentStreamGetter.getStream();
         }
         return null;
     }
     
-    public StreamGetter getPackageStreamGetter() {
+    public InputStreamGetter getPackageStreamGetter() {
         return packageStreamGetter;
     }
     
-    public void setPackageStreamGetter(StreamGetter packageStreamGetter) {
+    public void setPackageStreamGetter(InputStreamGetter packageStreamGetter) {
         this.packageStreamGetter = packageStreamGetter;
     }
     
-    public InputStream getPackageStream() {
+    public InputStream getPackageStream() throws IOException {
         if (packageStreamGetter != null) {
             return packageStreamGetter.getStream();
         }
         return null;
+    }
+    
+    public String getTemplateName() {
+        return templateName;
+    }
+    
+    public void setTemplateName(String templateName) {
+        this.templateName = templateName;
     }
     
     // The following methods must be implemented

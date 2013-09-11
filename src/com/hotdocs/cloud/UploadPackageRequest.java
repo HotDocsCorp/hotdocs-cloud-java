@@ -12,7 +12,8 @@ import java.util.Collection;
  */
 public class UploadPackageRequest extends Request {
     
-    public UploadPackageRequest(String packageId, StreamGetter packageStreamGetter) {
+    public UploadPackageRequest(
+            String packageId, InputStreamGetter packageStreamGetter) {
         this.packageId = packageId;
         this.contentStreamGetter = packageStreamGetter;
     }

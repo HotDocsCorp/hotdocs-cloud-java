@@ -26,20 +26,21 @@ public class Hmac {
      * Canonicalizes a collection of parameters into a string.
      * The canonicalization algorithm is as follows:
      * - Strings are included as-is, even if they contain '\n'.
-     * - Integral types are converted to strings using base 10 and no leading zeros.
+     * - Integral types are converted to strings using base 10.
      * - Enums and bools are converted to strings.
-     * - DateTime types are converted to UTC and formatted as "yyyy-MM-ddTHH:mm:ssZ".
+     * - DateTime types are UTC, and formatted as "yyyy-MM-ddTHH:mm:ssZ".
      * - Map<String,String>s are sorted alphabetically by key, and projected to
-     *   individual strings as "key=value", e.g. keyA=valueA\nkeyB=valueB\n etc.
+     * individual strings as "key=value", e.g. keyA=valueA\nkeyB=valueB\n etc.
      * - Nulls and all other types are converted to empty strings.
      * - All parameters are separated by '\n'.
      * 
-     * @param params  Objects that are combined to form the canonicalized string
-     * @return        The canonicalized string
+     * @param params
+     *            Objects that are combined to form the canonicalized string
+     * @return The canonicalized string
      */
     public static String canonicalize(Iterable<Object> params) {
-        
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        SimpleDateFormat dateFormat =
+                new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
 
         // Build the string
@@ -48,18 +49,18 @@ public class Hmac {
             if (p instanceof String || p instanceof Integer) {
                 sb.append(p.toString());
             } else if (p instanceof Boolean) {
-                sb.append((Boolean)p ? "True" : "False");
+                sb.append((Boolean) p ? "True" : "False");
             } else if (p instanceof Enum) {
                 sb.append(((Enum<?>) p).name());
             } else if (p instanceof Date) {
                 sb.append(dateFormat.format((Date) p));
             } else if (p instanceof Map<?, ?>) {
-                @SuppressWarnings("unchecked") // Casting Object to Map<String, String>
-                Map<String, String> map = (Map<String, String>)p;
+                @SuppressWarnings("unchecked")
+                Map<String, String> map = (Map<String, String>) p;
                 if (!map.isEmpty()) {
-                    ConcurrentSkipListMap<String, String> sortedMap =
+                    Map<String, String> sorted =
                             new ConcurrentSkipListMap<String, String>(map);
-                    for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
+                    for (Map.Entry<String, String> entry : sorted.entrySet()) {
                         sb.append(entry.getKey());
                         sb.append('=');
                         sb.append(entry.getValue());
@@ -83,27 +84,35 @@ public class Hmac {
      * Creates a BASE64-encoded HMAC-SHA1 hash from a
      * collection of parameters and a security token.
      * 
-     * @param signingKey  The subscriber's unique signing key
-     * @param params      The parameters to be hashed
-     * @return            The BASE64-encoded HMAC
-     * @throws HmacException 
+     * @param signingKey
+     *            The subscriber's unique signing key
+     * @param params
+     *            The parameters to be hashed
+     * @return The BASE64-encoded HMAC
+     * @throws HmacException
      */
-    public static String calculateHmac(String signingKey, Iterable<Object> params)
+    public static String calculateHmac(
+            String signingKey,
+            Iterable<Object> params)
             throws HmacException {
         try {
-            SecretKeySpec key = new SecretKeySpec(signingKey.getBytes("UTF-8"), "HmacSHA1");
-    
+            SecretKeySpec key = new SecretKeySpec(
+                    signingKey.getBytes("UTF-8"), "HmacSHA1");
+
             String stringToSign = canonicalize(params);
             byte[] bytesToSign = stringToSign.getBytes("UTF-8");
-    
+
             Mac mac = Mac.getInstance("HmacSHA1");
             mac.init(key);
             byte[] signature = mac.doFinal(bytesToSign);
 
             return DatatypeConverter.printBase64Binary(signature);
-            
-        } catch (UnsupportedEncodingException|NoSuchAlgorithmException|InvalidKeyException ex) {
-            throw new HmacException(ex.getClass().getName() + ": " + ex.getMessage());
+        } catch (
+                UnsupportedEncodingException
+                | NoSuchAlgorithmException
+                | InvalidKeyException ex) {
+            throw new HmacException(ex.getClass().getName()
+                    + ": " + ex.getMessage());
         }
     }
 }

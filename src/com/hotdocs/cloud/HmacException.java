@@ -5,8 +5,8 @@
 package com.hotdocs.cloud;
 
 /**
- * A catch-all exception for the very unlikely
- * occurence of an error during HMAC calculation. 
+ * A catch-all exception for the extremely unlikely
+ * errors that could during HMAC calculation.
  */
 @SuppressWarnings("serial")
 public class HmacException extends Exception {

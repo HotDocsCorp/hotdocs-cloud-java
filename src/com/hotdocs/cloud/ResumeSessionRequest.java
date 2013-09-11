@@ -16,7 +16,7 @@ public class ResumeSessionRequest extends Request {
     
     public ResumeSessionRequest(String snapshot) {
         this.snapshot = snapshot;
-        this.contentStreamGetter = new StringStreamGetter(snapshot);
+        this.contentStreamGetter = new StringInputStreamGetter(snapshot);
     }
     
     @Override
