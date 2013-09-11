@@ -119,6 +119,7 @@ public class Util {
     public static String getNamedValue(String str, String delim, String name) {
         String[] pairs = str.split(delim);
         for (String s : pairs) {
+            s = s.trim();
             if (s.startsWith(name + "=")) {
                 return s.substring(name.length() + 1);
             }

@@ -18,9 +18,8 @@ public class FileOutputStreamGetter implements OutputStreamGetter {
     }
     
     /**
-     * Returns a file stream, where the file is named after either
-     * 1) the filename value in the Content-Disposition header, or
-     * 2) the Content-ID header value 
+     * Returns a file stream, where the file is named after the filename value
+     * in the Content-Disposition header.
      */
     @Override
     public OutputStream getStream(Map<String, String> headers)
@@ -29,12 +28,9 @@ public class FileOutputStreamGetter implements OutputStreamGetter {
         String disp = headers.get("Content-Disposition");
         if (disp != null) {
             fileName = Util.getNamedValue(disp, ";", "filename");
-        }
-        if (fileName == null) {
-            fileName = headers.get("Content-ID");
-        }
-        if (fileName != null) {
-            return new FileOutputStream(new File(dir, fileName));
+            if (fileName != null) {
+                return new FileOutputStream(new File(dir, fileName));
+            }
         }
         return null;
     }
