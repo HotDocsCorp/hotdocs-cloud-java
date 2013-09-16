@@ -120,7 +120,7 @@ public class CreateSessionRequest extends Request {
         buffer.append(showDownloadLinks ? "true" : "false");
 
         if (billingRef != null) {
-            buffer.append("&billingRef=");
+            buffer.append("&billingref=");
             buffer.append(billingRef);
         }
 

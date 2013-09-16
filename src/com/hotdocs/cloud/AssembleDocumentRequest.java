@@ -6,13 +6,14 @@ package com.hotdocs.cloud;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 public class AssembleDocumentRequest extends Request {
 
     private OutputFormat format = OutputFormat.Native;
-    private Map<String, String> settings;
+    private Map<String, String> settings = new HashMap<String, String>();
 
     public AssembleDocumentRequest(String packageId, String packageFile) {
         super(packageId, packageFile);
@@ -30,6 +31,10 @@ public class AssembleDocumentRequest extends Request {
         this.templateName = templateName;
         this.format = format;
     }
+    
+    public void setSetting(String name, String value) {
+        settings.put(name, value);
+    }
 
     @Override
     String getPathPrefix() {
@@ -43,13 +48,11 @@ public class AssembleDocumentRequest extends Request {
         buffer.append("format=");
         buffer.append(format.name());
 
-        if (settings != null) {
-            for (Entry<String, String> setting : settings.entrySet()) {
-                buffer.append("&");
-                buffer.append(setting.getKey());
-                buffer.append("=");
-                buffer.append(setting.getValue());
-            }
+        for (Entry<String, String> setting : settings.entrySet()) {
+            buffer.append("&");
+            buffer.append(setting.getKey());
+            buffer.append("=");
+            buffer.append(setting.getValue());
         }
 
         return buffer.toString();

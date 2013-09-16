@@ -37,6 +37,10 @@ public class GetInterviewRequest extends Request {
         this.markedVariables = markedVariables;
         this.tempImageUrl = tempImageUrl;
     }
+    
+    public void setSetting(String name, String value) {
+        settings.put(name, value);
+    }
 
     @Override
     String getPathPrefix() {
@@ -60,13 +64,11 @@ public class GetInterviewRequest extends Request {
             buffer.append(tempImageUrl);
         }
         
-        if (settings != null) {
-            for (Entry<String,String> setting : settings.entrySet()) {
-                buffer.append("&");
-                buffer.append(setting.getKey());
-                buffer.append("=");
-                buffer.append(setting.getValue());
-            }
+        for (Entry<String,String> setting : settings.entrySet()) {
+            buffer.append("&");
+            buffer.append(setting.getKey());
+            buffer.append("=");
+            buffer.append(setting.getValue());
         }
         
         return buffer.toString();
