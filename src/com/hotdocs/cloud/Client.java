@@ -229,8 +229,11 @@ public class Client {
             conn.setDoOutput(true);
             InputStream contentStream = request.getContentStream();
             if (contentStream != null) {
-                conn.setFixedLengthStreamingMode(request
-                        .getContentStreamGetter().getLength());
+                int length = request.getContentStreamGetter().getLength();
+                if (length > -1)
+                {
+                    conn.setFixedLengthStreamingMode(length);
+                }
                 Util.copyStream(contentStream, conn.getOutputStream());
             } else {
                 conn.setFixedLengthStreamingMode(0);
@@ -247,7 +250,6 @@ public class Client {
 
         if (conn.getResponseCode() == 404
                 && request.getPackageStreamGetter() != null) {
-
             // The package isn't in the HDCS cache, so upload it
             HttpURLConnection uploadConn = getConn(new UploadPackageRequest(
                     request.getPackageId(),

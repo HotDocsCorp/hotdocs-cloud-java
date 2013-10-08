@@ -11,6 +11,7 @@ import java.io.InputStream;
  * A delegate for obtaining an input stream and its length.
  */
 public interface InputStreamGetter {
+    // Return a -1 from getLength() if the length is unknown.
     int getLength();
     InputStream getStream() throws IOException;
 }
