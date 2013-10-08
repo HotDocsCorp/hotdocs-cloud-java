@@ -177,7 +177,7 @@ class StreamSplitter {
     }
 
     // Get byte from index i in the virtual buffer.
-    private byte GetByte(int i) {
+    private byte getByte(int i) {
         return buffer[plus(head, i)];
     }
 
@@ -198,7 +198,7 @@ class StreamSplitter {
     private int indexOf(byte[] pattern) {
         int count = virtualSize - (pattern.length - 1);
         for (int i = 0; i < count; i++) {
-            for (int j = 0; GetByte(i + j) == pattern[j]; j++) {
+            for (int j = 0; getByte(i + j) == pattern[j]; j++) {
                 if (j == pattern.length - 1) {
                     return i;
                 }

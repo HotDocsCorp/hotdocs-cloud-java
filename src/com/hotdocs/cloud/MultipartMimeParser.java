@@ -103,8 +103,7 @@ public class MultipartMimeParser {
             scratchPad.reset();
             int length = splitter.writeUntilPattern(scratchPad, CRLF);
             line = new String(scratchPad.getBuf(), 0, length);
-            if (length > 0)
-            {
+            if (length > 0) {
                 // Split into name and value, and store in the table
                 String[] header = line.split(":", 2);
                 headers.put(header[0].trim(), header[1].trim());
