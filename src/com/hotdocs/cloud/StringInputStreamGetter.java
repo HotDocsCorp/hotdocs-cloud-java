@@ -8,6 +8,9 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
+/**
+ * An InputStreamGetter that gets a stream from a string.
+ */
 public class StringInputStreamGetter implements InputStreamGetter {
     
     private String str;

@@ -171,24 +171,15 @@ public class Client {
     }
 
     /**
-     * This causes the client object to ignore all certificate errors.
-     * This is for testing only! Do not call this in a production deployment!
+     * Causes the client object to ignore all certificate errors.
+     * For testing only! Do not call this in a production deployment!
      */
     public void ignoreCertErrors() {
         Util.setSSLContextToIgnoreCertErrors();
         areCertErrorsIgnored = true;
     }
 
-    /**
-     * Gets an HttpURLConnection according to the
-     * provided Request object.
-     * 
-     * @param request
-     * @return
-     * @throws URISyntaxException
-     * @throws IOException
-     * @throws HmacException
-     */
+    // Gets an HttpURLConnection according to the provided Request object.
     private HttpURLConnection getConn(Request request)
             throws URISyntaxException, IOException, HmacException {
         String path = String.format("%s/%s", request.getPathPrefix(),
@@ -292,6 +283,7 @@ public class Client {
         conn.setRequestProperty("x-hd-date", dateFormat.format(timestamp));
     }
 
+    // 
     private void handleMultipart(HttpURLConnection conn, String dir)
             throws IOException {
         new File(dir).mkdir();

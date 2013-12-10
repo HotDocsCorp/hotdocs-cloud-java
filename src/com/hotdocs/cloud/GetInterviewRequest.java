@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * Encapsulates the parameters for a GetInterview request.
+ */
 public class GetInterviewRequest extends Request {
     
     private InterviewFormat format = InterviewFormat.JavaScript;

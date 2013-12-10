@@ -7,6 +7,9 @@ package com.hotdocs.cloud;
 import java.util.Arrays;
 import java.util.Collection;
 
+/**
+ * Encapsulates the parameters for a GetComponentInfo request.
+ */
 public class GetComponentInfoRequest extends Request {
     
     private boolean includeDialogs = false;

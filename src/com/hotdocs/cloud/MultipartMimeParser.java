@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This class parses an input stream of multipart MIME content.
+ * Parses an input stream of multipart MIME content.
  */
 public class MultipartMimeParser {
 

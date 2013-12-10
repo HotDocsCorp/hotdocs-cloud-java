@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * Encapsulates the parameters for an AssembleDocument request.
+ */
 public class AssembleDocumentRequest extends Request {
 
     private OutputFormat format = OutputFormat.Native;

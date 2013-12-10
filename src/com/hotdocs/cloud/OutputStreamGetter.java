@@ -12,5 +12,10 @@ import java.util.Map;
  * Use this with MultipartMimeParser.
  */
 public interface OutputStreamGetter {
+    /**
+     * @param headers The MIME part headers
+     * @return The output stream
+     * @throws IOException
+     */
     OutputStream getStream(Map<String, String> headers) throws IOException;
 }
