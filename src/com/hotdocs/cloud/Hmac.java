@@ -21,7 +21,7 @@ import javax.xml.bind.DatatypeConverter;
  * A utility class that calculates the HMAC for a
  * HotDocs Cloud Services request.
  */
-public class Hmac {
+class Hmac {
     /**
      * Canonicalizes a collection of parameters into a string.
      * The canonicalization algorithm is as follows:
@@ -38,7 +38,7 @@ public class Hmac {
      *            Objects that are combined to form the canonicalized string
      * @return The canonicalized string
      */
-    public static String canonicalize(Iterable<Object> params) {
+    static String canonicalize(Iterable<Object> params) {
         SimpleDateFormat dateFormat =
                 new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -91,7 +91,7 @@ public class Hmac {
      * @return The BASE64-encoded HMAC
      * @throws HmacException
      */
-    public static String calculateHmac(
+    static String calculateHmac(
             String signingKey,
             Iterable<Object> params)
             throws HmacException {

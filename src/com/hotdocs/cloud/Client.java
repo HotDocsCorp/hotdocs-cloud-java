@@ -124,7 +124,7 @@ public class Client {
      * 
      * @param request
      * @param filePath
-     * @return
+     * @return The HTTP status code
      * @throws URISyntaxException
      * @throws IOException
      * @throws HmacException

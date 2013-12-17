@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Parses an input stream of multipart MIME content.
  */
-public class MultipartMimeParser {
+class MultipartMimeParser {
 
     /**
      * A subclass of ByteArrayOutputStream that allows access to the buffer.
@@ -40,7 +40,7 @@ public class MultipartMimeParser {
     /**
      * MultipartMimeParser constructor
      */
-    public MultipartMimeParser() {
+    MultipartMimeParser() {
     }
 
     /**
@@ -53,7 +53,7 @@ public class MultipartMimeParser {
      * @param boundary
      * @throws IOException
      */
-    public void writePartsToStreams(
+    void writePartsToStreams(
             InputStream streamIn,
             OutputStreamGetter outputStreamGetter,
             String boundary)

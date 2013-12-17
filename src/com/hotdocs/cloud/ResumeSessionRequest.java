@@ -67,7 +67,7 @@ public class ResumeSessionRequest extends Request {
      * first occurrence of a string variable with the given name,
      * no matter how deeply nested it is.
      * @param varName
-     * @return
+     * @return String value
      */
     private String getStringValueFromJson(String json, String varName) {
         Pattern pattern = Pattern.compile("\"" + varName

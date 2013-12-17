@@ -26,7 +26,7 @@ import javax.net.ssl.X509TrustManager;
 /**
  * Static utility methods.
  */
-public class Util {
+class Util {
 
     /**
      * Reads a whole stream into a string.
@@ -34,7 +34,7 @@ public class Util {
      * @param stream
      * @return
      */
-    public static String readString(InputStream stream) {
+    static String readString(InputStream stream) {
         try (Scanner scanner = new Scanner(stream)) {
             scanner.useDelimiter("\\A");
             return scanner.hasNext() ? scanner.next() : "";
@@ -48,7 +48,7 @@ public class Util {
      * @param to
      * @throws IOException
      */
-    public static void copyStream(InputStream from, OutputStream to)
+    static void copyStream(InputStream from, OutputStream to)
             throws IOException {
         byte[] buffer = new byte[1024];
         int len;
@@ -66,7 +66,7 @@ public class Util {
      * @return
      * @throws IOException
      */
-    public static boolean httpOk(HttpURLConnection conn) throws IOException {
+    static boolean httpOk(HttpURLConnection conn) throws IOException {
         // Is the response code >= 200 and < 300?
         return (conn.getResponseCode() / 100 == 2);
     }
@@ -78,7 +78,7 @@ public class Util {
      * @return
      * @throws IOException
      */
-    public static InputStream getResponseStream(HttpURLConnection conn)
+    static InputStream getResponseStream(HttpURLConnection conn)
             throws IOException {
         return httpOk(conn) ? conn.getInputStream() : conn.getErrorStream();
     }
@@ -89,14 +89,14 @@ public class Util {
      * @param str
      * @return
      */
-    public static boolean isNullOrEmpty(String str) {
+    static boolean isNullOrEmpty(String str) {
         return (str == null || str.length() == 0);
     }
 
     /**
      * Typical join call
      */
-    public static String join(String[] strs, String delim) {
+    static String join(String[] strs, String delim) {
         StringBuilder buffer = new StringBuilder();
         for (int i = 0; i < strs.length; i++) {
             buffer.append(strs[i]);
@@ -116,7 +116,7 @@ public class Util {
      * @param name
      * @return
      */
-    public static String getNamedValue(String str, String delim, String name) {
+    static String getNamedValue(String str, String delim, String name) {
         String[] pairs = str.split(delim);
         for (String s : pairs) {
             s = s.trim();
@@ -131,7 +131,7 @@ public class Util {
      * Configures the default SSLContext to ignore certificate errors.
      * For testing only! Do not call this in a production deployment!
      */
-    public static void setSSLContextToIgnoreCertErrors() {
+    static void setSSLContextToIgnoreCertErrors() {
         try {
             SSLContext ctx = SSLContext.getInstance("TLS");
             ctx.init(new KeyManager[0],
@@ -149,7 +149,7 @@ public class Util {
      * 
      * @param conn
      */
-    public static void setConnToIgnoreHostNameErrors(HttpsURLConnection conn) {
+    static void setConnToIgnoreHostNameErrors(HttpsURLConnection conn) {
         conn.setHostnameVerifier(new HostnameVerifier() {
             @Override
             public boolean verify(String hostname, SSLSession session) {

@@ -9,11 +9,11 @@ import java.util.Map;
 /**
  * An OutputStreamGetter that routes multipart MIME parts to files.
  */
-public class FileOutputStreamGetter implements OutputStreamGetter {
+class FileOutputStreamGetter implements OutputStreamGetter {
     
     private String dir;
     
-    public FileOutputStreamGetter(String dir) {
+    FileOutputStreamGetter(String dir) {
         this.dir = dir;
     }
     

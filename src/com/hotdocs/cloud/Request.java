@@ -12,7 +12,7 @@ import java.util.Collection;
  * An abstract class that encapsulates the parameters
  * in a HotDocs Cloud Services request.
  */
-public abstract class Request {
+abstract class Request {
     
     protected String billingRef;
     protected String packageId;
@@ -20,24 +20,24 @@ public abstract class Request {
     protected InputStreamGetter packageStreamGetter;
     protected String templateName;
     
-    public Request() {
+    Request() {
     }
     
-    public Request(String packageId, InputStreamGetter packageStreamGetter) {
+    Request(String packageId, InputStreamGetter packageStreamGetter) {
         this.packageId = packageId;
         this.packageStreamGetter = packageStreamGetter;
     }
     
-    public Request(String packageId, String packageFile) {
+    Request(String packageId, String packageFile) {
         this(packageId, new FileInputStreamGetter(packageFile));
     }
     
-    public Request(String packageId, String packageFile, String content) {
+    Request(String packageId, String packageFile, String content) {
         this(packageId, packageFile);
         contentStreamGetter = new StringInputStreamGetter(content);
     }
     
-    public Request(
+    Request(
             String packageId,
             String packageFile,
             String content,
@@ -48,57 +48,57 @@ public abstract class Request {
     
     // Getters/Setters
 
-    public String getBillingRef() {
+    String getBillingRef() {
         return billingRef;
     }
     
-    public void setBillingRef(String billingRef) {
+    void setBillingRef(String billingRef) {
         this.billingRef = billingRef;
     }
     
-    public String getPackageId() {
+    String getPackageId() {
         return packageId;
     }
     
-    public void setPackageId(String packageId) {
+    void setPackageId(String packageId) {
         this.packageId = packageId;
     }
 
-    public InputStreamGetter getContentStreamGetter() {
+    InputStreamGetter getContentStreamGetter() {
         return contentStreamGetter;
     }
     
-    public void setContentStreamGetter(InputStreamGetter contentStreamGetter) {
+    void setContentStreamGetter(InputStreamGetter contentStreamGetter) {
         this.contentStreamGetter = contentStreamGetter;
     }
     
-    public InputStream getContentStream() throws IOException {
+    InputStream getContentStream() throws IOException {
         if (contentStreamGetter != null) {
             return contentStreamGetter.getStream();
         }
         return null;
     }
     
-    public InputStreamGetter getPackageStreamGetter() {
+    InputStreamGetter getPackageStreamGetter() {
         return packageStreamGetter;
     }
     
-    public void setPackageStreamGetter(InputStreamGetter packageStreamGetter) {
+    void setPackageStreamGetter(InputStreamGetter packageStreamGetter) {
         this.packageStreamGetter = packageStreamGetter;
     }
     
-    public InputStream getPackageStream() throws IOException {
+    InputStream getPackageStream() throws IOException {
         if (packageStreamGetter != null) {
             return packageStreamGetter.getStream();
         }
         return null;
     }
     
-    public String getTemplateName() {
+    String getTemplateName() {
         return templateName;
     }
     
-    public void setTemplateName(String templateName) {
+    void setTemplateName(String templateName) {
         this.templateName = templateName;
     }
     
